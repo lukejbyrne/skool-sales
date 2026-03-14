@@ -1,6 +1,4 @@
-# Skool Revenue Tracker — BwL Module
-
-## Module Overview
+# Build Your Skool Revenue Tracker with Claude Code
 
 **What you'll build:** A fully automated revenue tracking system for your Skool community that syncs your member data daily, tracks every sale and renewal, reconciles against your Wednesday payouts, and gives you a live visual dashboard — all in under 30 minutes using Claude Code.
 
@@ -14,11 +12,12 @@
 - Daily cron job that keeps everything up to date
 - Hosted on Netlify so you can check your dashboard from anywhere
 
+**Reference code:** https://github.com/lukejbyrne/skool-sales
+
 ---
 
-## Lesson: Build Your Skool Revenue Tracker with Claude Code
-
 ### Prerequisites
+
 - Claude Code installed (`npm install -g @anthropic-ai/claude-code`)
 - A Skool community with paying members
 - A GitHub account
@@ -87,7 +86,7 @@ This is the key insight — Skool's payout page shows your payout history. Compa
 Log your historical payouts:
 
 ```bash
-python3 tracker.py payout 18.15 2026-03-04 "Wednesday payout"
+python3 tracker.py payout 18.15 2025-03-04 "Wednesday payout"
 ```
 
 If the auto-match shows $0.00 unmatched — your fee model is correct. If not, adjust the fee constants in the script.
@@ -99,16 +98,16 @@ If the auto-match shows $0.00 unmatched — your fee model is correct. If not, a
 Tell Claude:
 
 > Add a dashboard command that generates an HTML file with Chart.js. Include:
-> - Stat cards: gross revenue, net revenue, fees, paid out, pending, member counts
+> - KPI cards: gross revenue, net revenue, fees, paid out, pending, member counts
 > - Revenue over time bar chart (daily, gross vs net)
 > - Cumulative net revenue line chart
 > - Monthly breakdown bar chart
 > - New vs renewals bar chart
 > - Price tier doughnut chart
 > - Payout table and full transaction table
-> - Filter buttons: 7D, 30D, All Time, and a custom one for your community launch date
+> - Filter tabs: 7D, 30D, All Time, and a custom one for your community launch date
 > - All filtering should be client-side (embed data as JSON, rebuild charts on filter click)
-> - Dark mode (bg #0f1117, cards #1a1d27)
+> - Dark mode
 > - Open the HTML in the browser when generated
 
 ```bash
@@ -170,12 +169,12 @@ echo "--- $(date) ---" >> data/sync.log
 chmod +x sync.sh
 ```
 
-Add to your crontab (runs daily at 9:07am):
+Add to your crontab (runs daily at 9am):
 
 ```bash
 crontab -e
 # Add this line:
-7 9 * * * /path/to/skool-sales/sync.sh
+0 9 * * * /path/to/skool-sales/sync.sh
 ```
 
 Check logs anytime:
@@ -274,5 +273,5 @@ python3 tracker.py status
 - Add Slack/Discord notifications when a new member joins
 - Track refunds and chargebacks
 - Add MRR (monthly recurring revenue) calculations
-- Currency conversion tracking (USD → GBP) using live exchange rates
+- Currency conversion tracking (USD to GBP) using live exchange rates
 - Multiple Skool communities in one dashboard
